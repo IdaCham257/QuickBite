@@ -64,6 +64,19 @@ public class Main {
             System.out.println(itemName[i]+" "+itemPrices[i]+" "+itemAvailable[i]);
         }
 
+        //Linear search by item name
+        for (int i = 0; i < itemName.length; i++){
+            System.out.print("Enter the item name:__");
+            String searchTerm = in.next();
+
+            if (itemName[i].equalsIgnoreCase(searchTerm)){
+                System.out.println(itemName[i]+ "\t" +itemPrices[i]+ "\t" +itemAvailable[i]);
+
+            } else {
+                System.out.println(searchTerm+ "not found.");
+            }
+        }
+
         /*
         bread 12
         berries 300
