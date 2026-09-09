@@ -7,6 +7,11 @@ public class Main {
         itemAvailable: data type for this Array is boolean
          */
 
+        // Initialize your scanner obj
+        Scanner in = new Scanner(System.in);
+
+        // Items names, prices, and availability
+
         String[] itemName = {"bread", "berries", "pringles", "apple"};
         double[] itemPrices = {12, 200, 350, 30};
         boolean[] itemAvailable = {true, false, true, false};
