@@ -2,7 +2,21 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static int findItemIndexByName(String[] itemName, String query) {
+        //look for item name
+        for (int i = 0; i < itemName.length; i++) {
+            if (itemName[i].equalsIgnoreCase(query)){
+                return i;
+            }
+        }
+
+        //done searching
+        return -1;
+    }
+
+    public static void main(String[] args) {
+
+
         //QuickBite
         /*
         itemName: data type for this Array is Sring
@@ -76,6 +90,19 @@ public class Main {
                 System.out.println(searchTerm+ "not found.");
             }
         }
+        //linear search by item name
+
+        int index = findItemIndexByName(itemName, "Bread");
+        System.out.println(index);
+
+        //item is not found
+        if (index ==-1) {
+            System.out.println("Item not found!");
+        } else {
+            System.out.println("Item is at index: " +index+ " - ");
+        }
+        //item is found is at index : name
+    }
 
         /*
         bread 12
@@ -84,5 +111,5 @@ public class Main {
         apple 30
          */
 
-        }
+
 }
