@@ -1,107 +1,61 @@
+import java.awt.desktop.AboutEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
-public class Main {
-    public static int findItemIndexByName(String[] itemName, String query) {
-        //look for item name
-        for (int i = 0; i < itemName.length; i++) {
-            if (itemName[i].equalsIgnoreCase(query)){
-                return i;
-            }
-        }
+public class   Main {
 
-        //done searching
-        return -1;
+    /**
+     * printFinalPrice
+     * This method is going to determine the final price each customer is paying
+     * @param Customer
+     * @param price
+     */
+
+    public static void PrintFinalPrice(Discountable Customer, double price) {
+        System.out.printf("You Pay:  GMD%.2f%n", Customer.applyDiscount(price));
     }
 
-    public static void main(String[] args) {
+    public static void main (String[]args){
+        // create new FoodTruck obj (object)
+        FoodTruck truck = new FoodTruck();
+        MenuItem item1 = new MenuItem("bread", 125, true);
+        // add menu item to truck
+        truck.addItem(item1);
 
+        truck.printMenu();
 
-        //QuickBite
-        /*
-        itemName: data type for this Array is Sring
-        itemPrices: data type for this Array is double
-        itemAvailable: data type for this Array is boolean
-         */
+       // creating VIP and Regular customer
+       List<Customer> line =new ArrayList<>();
+       line.add(new RegularCustomer("Lamin"));
+       line.add(new RegularCustomer("Awa"));
+       line.add(new VIPCustomer("Binta"));
 
-        // Initialize your scanner obj
-        Scanner in = new Scanner(System.in);
+       // Printing the priority of customers
+        for (Customer c : line) {
+            System.out.println(c .describe());
+        }
 
-        // Items names, prices, and availability
-
-        String[] itemName = {"bread", "berries", "pringles", "apple"};
-        double[] itemPrices = {12, 200, 350, 30};
-        boolean[] itemAvailable = {true, false, true, false};
-
-        // add items to the Array using Scanner class/object
-
-        do {
-            System.out.println("Are you adding item?: Y or N"); // hint the user
-            String userInput = in.next();
-
-            if (userInput.equalsIgnoreCase("n")) break;
-            System.out.print("Enter item name: ");
-            String name = in.next();
-
-            System.out.print("Enter item price: ");
-            double price = in.nextDouble();
-
-
-            System.out.println("Enter item status: ");
-            boolean status = in.nextBoolean(); // true / false
-
-            System.out.println("Name \t price \t status");
-            System.out.println(name+ "\t" +price+ "\t" +status);
-
-
-            // add new captured item to the store
-            itemName = Arrays.copyOf(itemName,itemName.length+1);
-            // Array is resized {"bread", "berries", "pringles", "apple", ""}
-            itemName[itemName.length-1] = name;
-            System.out.println(Arrays.toString(itemName));
-
-
-        } while (true);
-
-        //print the items one-by-one
-        for (int i =0; i <itemName.length; i++) {
-            //check availability of an item and print
-            //sold out or available
-
-            String check = null;
-            if (itemAvailable[i] == true){
-                check = "Available";
-            }else {
-                check = "sold out";
+        Customer next = line.get(0); // get the first customer from the line
+        for (Customer c : line) {
+            // check for a customer with a priority of 1
+//            if(c.getpriority() > next.getPriority()) {
+                next = c;
 
             }
-            System.out.println(itemName[i]+" "+itemPrices[i]+" "+itemAvailable[i]);
+
+        System.out.println();
+        System.out.println("Serving " +next.getName());
+
+
+        System.out.println("---------------------------------------");
+        System.out.println("Checking prices for a Regular and VIP Customer");
+        PrintFinalPrice(new RegularCustomer("Lamin"),   100);
+        PrintFinalPrice(new VIPCustomer("Ida"), 100);
+
         }
-
-        //Linear search by item name
-        for (int i = 0; i < itemName.length; i++){
-            System.out.print("Enter the item name:__");
-            String searchTerm = in.next();
-
-            if (itemName[i].equalsIgnoreCase(searchTerm)){
-                System.out.println(itemName[i]+ "\t" +itemPrices[i]+ "\t" +itemAvailable[i]);
-
-            } else {
-                System.out.println(searchTerm+ "not found.");
-            }
-        }
-        //linear search by item name
-
-        int index = findItemIndexByName(itemName, "Bread");
-        System.out.println(index);
-
-        //item is not found
-        if (index ==-1) {
-            System.out.println("Item not found!");
-        } else {
-            System.out.println("Item is at index: " +index+ " - ");
-        }
-        //item is found is at index : name
     }
 
         /*
@@ -109,7 +63,5 @@ public class Main {
         berries 300
         pringles 350
         apple 30
+
          */
-
-
-}
